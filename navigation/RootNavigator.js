@@ -4,6 +4,7 @@ import { createSharedElementStackNavigator } from 'react-navigation-shared-eleme
 
 import VehiclesScreen from '../screens/VehiclesScreen'
 import MissionsScreen from '../screens/MissionsScreen'
+import DetailScreen from '../screens/DetailScreen'
 
 const Stack = createSharedElementStackNavigator()
 
@@ -21,10 +22,11 @@ const options = {
 export default function RootNavigator() {
   return (
     <NavigationContainer>
-        <Stack.Navigator headerMode='none' initialRouteName='Home'>
-          <Stack.Screen name='VehiclesScreen' component={VehiclesScreen} />
-          <Stack.Screen name='MissionsScreen' component={MissionsScreen} options={() => options} />
-        </Stack.Navigator>
+      <Stack.Navigator headerMode='none' initialRouteName='Home'>
+        <Stack.Screen name='VehiclesScreen' component={VehiclesScreen} />
+        <Stack.Screen name='MissionsScreen' component={MissionsScreen} options={() => options} />
+        <Stack.Screen name='DetailScreen' component={DetailScreen} options={() => options} />
+      </Stack.Navigator>
     </NavigationContainer>
   )
 }

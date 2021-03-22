@@ -27,7 +27,7 @@ export default function VehiclesScreen({ navigation }) {
       {/* Scrollable content */}
       <View style={{ flex: 1, paddingBottom: 20 }}>
         <ScrollView indicatorStyle='white' contentContainerStyle={{ alignItems: 'center' }}>
-          {data.map((item) => (
+          {data?.map((item) => (
             <View key={item.id}>
               <TouchableOpacity
                 activeOpacity={0.8}
