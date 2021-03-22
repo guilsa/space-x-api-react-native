@@ -60,12 +60,10 @@ const DetailScreen = ({ navigation, route }) => {
     <View style={{ flex: 1, backgroundColor: '#0f0f0f' }}>
       <SharedElement id={`item.${item.id}.flickr_images`}>
         <Image
-          source={{ uri: item.flickr_images[1] }}
+          source={{ uri: item.flickr_images[0] }}
           style={{
             width: '100%',
             height: ITEM_HEIGHT,
-            borderBottomLeftRadius: 20,
-            borderBottomRightRadius: 20,
           }}
           resizeMode="cover"
         />

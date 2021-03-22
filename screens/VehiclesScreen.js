@@ -1,5 +1,12 @@
 import React from 'react'
-import { ScrollView, Text, View, TouchableOpacity, Image, Dimensions } from 'react-native'
+import {
+  ScrollView,
+  Text,
+  View,
+  TouchableOpacity,
+  Image,
+  Dimensions,
+} from 'react-native'
 import { StatusBar } from 'expo-status-bar'
 import { SimpleLineIcons } from '@expo/vector-icons'
 import { SharedElement } from 'react-navigation-shared-element'
@@ -21,28 +28,39 @@ export default function VehiclesScreen({ navigation }) {
       <StatusBar hidden />
       {/* Header */}
       <View style={{ marginTop: 50, marginBottom: 20, paddingHorizontal: 20 }}>
-        <Text style={{ color: '#888', textTransform: 'uppercase' }}>Saturday 9 January</Text>
-        <Text style={{ color: '#fff', fontSize: 32, fontWeight: '600' }}>Today</Text>
+        <Text style={{ color: '#888', textTransform: 'uppercase' }}>
+          Saturday 9 January
+        </Text>
+        <Text style={{ color: '#fff', fontSize: 32, fontWeight: '600' }}>
+          Today
+        </Text>
       </View>
       {/* Scrollable content */}
       <View style={{ flex: 1, paddingBottom: 20 }}>
-        <ScrollView indicatorStyle='white' contentContainerStyle={{ alignItems: 'center' }}>
+        <ScrollView
+          indicatorStyle="white"
+          contentContainerStyle={{ alignItems: 'center' }}
+        >
           {data?.map((item) => (
             <View key={item.id}>
               <TouchableOpacity
                 activeOpacity={0.8}
-                style={{ marginBottom: 14 }}
+                style={{
+                  shadowColor: '#000',
+                  shadowOffset: { width: 0, height: 3 },
+                  shadowOpacity: 0.5,
+                  shadowRadius: 5,
+                }}
                 onPress={() => navigation.navigate('DetailScreen', { item })}
               >
                 <SharedElement id={`item.${item.id}.image_url`}>
                   <Image
                     style={{
-                      borderRadius: 14,
                       width: ITEM_WIDTH,
                       height: ITEM_HEIGHT,
                     }}
-                    source={{ uri: item.flickr_images[0] }}
-                    resizeMode='cover'
+                    source={{ uri: item.flickr_images[1] }}
+                    resizeMode="cover"
                   />
                 </SharedElement>
                 <View
@@ -52,7 +70,7 @@ export default function VehiclesScreen({ navigation }) {
                     left: 10,
                     backgroundColor: 'black',
                     padding: 20,
-                    opacity: 0.6,
+                    opacity: 0.7,
                     borderRadius: 5,
                   }}
                 >
@@ -82,7 +100,10 @@ export default function VehiclesScreen({ navigation }) {
                             lineHeight: 18,
                           }}
                         >
-                          {item.description.slice(0, item.description.indexOf('.') + 1)}
+                          {item.description.slice(
+                            0,
+                            item.description.indexOf('.') + 1
+                          )}
                         </Text>
                       </SharedElement>
                     </View>
@@ -96,4 +117,3 @@ export default function VehiclesScreen({ navigation }) {
     </View>
   )
 }
-  
