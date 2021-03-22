@@ -6,6 +6,9 @@ import VehiclesScreen from '../screens/VehiclesScreen'
 import MissionsScreen from '../screens/MissionsScreen'
 import DetailScreen from '../screens/DetailScreen'
 
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+
+const Tab = createBottomTabNavigator()
 const Stack = createSharedElementStackNavigator()
 
 const options = {
@@ -19,13 +22,46 @@ const options = {
   },
 }
 
+function TabNavigator() {
+  return (
+    <Tab.Navigator
+      tabBarOptions={{
+        labelStyle: {
+          fontSize: 16,
+          marginBottom: 12,
+        },
+        activeTintColor: 'white',
+        inactiveTintColor: '#d9d9d9',
+        style: {
+          borderTopColor: '#0f0f0f',
+          backgroundColor: '#0f0f0f',
+        },
+      }}
+    >
+      <Tab.Screen
+        name="Vehicles"
+        component={VehiclesScreen}
+        options={() => options}
+      />
+      <Tab.Screen
+        name="Missions"
+        component={MissionsScreen}
+        options={() => options}
+      />
+    </Tab.Navigator>
+  )
+}
+
 export default function RootNavigator() {
   return (
     <NavigationContainer>
-      <Stack.Navigator headerMode='none' initialRouteName='Home'>
-        <Stack.Screen name='VehiclesScreen' component={VehiclesScreen} />
-        <Stack.Screen name='MissionsScreen' component={MissionsScreen} options={() => options} />
-        <Stack.Screen name='DetailScreen' component={DetailScreen} options={() => options} />
+      <Stack.Navigator headerMode="none" initialRouteName="TabNavigator">
+        <Stack.Screen name="TabNavigator" component={TabNavigator} />
+        <Stack.Screen
+          name="DetailScreen"
+          component={DetailScreen}
+          options={() => options}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   )

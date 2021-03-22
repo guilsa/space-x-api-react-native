@@ -34,6 +34,7 @@ const DetailScreen = ({ navigation, route }) => {
       TODO: Refactor and have less logic, not more
         1. If object is more than n level deep, ignore, except whitelisted key pairs.
         2. Blacklist items we don't want to display so we remove fieldsMapping dependency.
+        3. Add support for nested data navigation
     */
 
     return fieldsMapping.map((info, idx) => {
