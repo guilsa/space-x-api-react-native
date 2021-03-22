@@ -50,6 +50,10 @@ export default function VehiclesScreen({ navigation }) {
                     position: 'absolute',
                     bottom: 20,
                     left: 10,
+                    backgroundColor: 'black',
+                    padding: 20,
+                    opacity: 0.6,
+                    borderRadius: 5,
                   }}
                 >
                   <View style={{ flexDirection: 'row' }}>
@@ -58,7 +62,7 @@ export default function VehiclesScreen({ navigation }) {
                         <Text
                           style={{
                             color: 'white',
-                            fontSize: 24,
+                            fontSize: 20,
                             fontWeight: 'bold',
                             lineHeight: 28,
                             backgroundColor: 'black',
@@ -71,11 +75,10 @@ export default function VehiclesScreen({ navigation }) {
                         <Text
                           style={{
                             width: 250,
-                            marginTop: 20,
+                            marginTop: 12,
                             color: 'white',
-                            fontSize: 16,
+                            fontSize: 14,
                             backgroundColor: 'black',
-                            opacity: 0.8,
                             lineHeight: 18,
                           }}
                         >
