@@ -1,43 +1,33 @@
-import React from 'react';
-import {
-  ScrollView,
-  Text,
-  View,
-  TouchableOpacity,
-  Image,
-  Dimensions
-} from 'react-native';
-import { StatusBar } from 'expo-status-bar';
-import { SimpleLineIcons } from '@expo/vector-icons';
-import { SharedElement } from 'react-navigation-shared-element';
+import React from 'react'
+import { ScrollView, Text, View, TouchableOpacity, Image, Dimensions } from 'react-native'
+import { StatusBar } from 'expo-status-bar'
+import { SimpleLineIcons } from '@expo/vector-icons'
+import { SharedElement } from 'react-navigation-shared-element'
 
-import { data } from '../config/data';
+import { useQuery } from 'react-query'
 
-const { width } = Dimensions.get('screen');
+import { fetchRockets } from '../utils/api'
 
-const ITEM_WIDTH = width * 0.9;
-const ITEM_HEIGHT = ITEM_WIDTH * 0.9;
+const { width } = Dimensions.get('screen')
+
+const ITEM_WIDTH = width * 0.9
+const ITEM_HEIGHT = ITEM_WIDTH * 0.9
 
 export default function VehiclesScreen({ navigation }) {
+  const { data, error, isLoading, isError } = useQuery('rockets', fetchRockets)
+
   return (
     <View style={{ flex: 1, backgroundColor: '#0f0f0f' }}>
       <StatusBar hidden />
       {/* Header */}
       <View style={{ marginTop: 50, marginBottom: 20, paddingHorizontal: 20 }}>
-        <Text style={{ color: '#888', textTransform: 'uppercase' }}>
-          Saturday 9 January
-        </Text>
-        <Text style={{ color: '#fff', fontSize: 32, fontWeight: '600' }}>
-          Today
-        </Text>
+        <Text style={{ color: '#888', textTransform: 'uppercase' }}>Saturday 9 January</Text>
+        <Text style={{ color: '#fff', fontSize: 32, fontWeight: '600' }}>Today</Text>
       </View>
       {/* Scrollable content */}
       <View style={{ flex: 1, paddingBottom: 20 }}>
-        <ScrollView
-          indicatorStyle='white'
-          contentContainerStyle={{ alignItems: 'center' }}
-        >
-          {data.map(item => (
+        <ScrollView indicatorStyle='white' contentContainerStyle={{ alignItems: 'center' }}>
+          {data.map((item) => (
             <View key={item.id}>
               <TouchableOpacity
                 activeOpacity={0.8}
@@ -49,9 +39,9 @@ export default function VehiclesScreen({ navigation }) {
                     style={{
                       borderRadius: 14,
                       width: ITEM_WIDTH,
-                      height: ITEM_HEIGHT
+                      height: ITEM_HEIGHT,
                     }}
-                    source={{ uri: item.image_url }}
+                    source={{ uri: item.flickr_images[0] }}
                     resizeMode='cover'
                   />
                 </SharedElement>
@@ -59,17 +49,10 @@ export default function VehiclesScreen({ navigation }) {
                   style={{
                     position: 'absolute',
                     bottom: 20,
-                    left: 10
+                    left: 10,
                   }}
                 >
                   <View style={{ flexDirection: 'row' }}>
-                    <SharedElement id={`item.${item.id}.iconName`}>
-                      <SimpleLineIcons
-                        size={40}
-                        color='white'
-                        name={item.iconName}
-                      />
-                    </SharedElement>
                     <View style={{ flexDirection: 'column', paddingLeft: 6 }}>
                       <SharedElement id={`item.${item.id}.title`}>
                         <Text
@@ -77,22 +60,26 @@ export default function VehiclesScreen({ navigation }) {
                             color: 'white',
                             fontSize: 24,
                             fontWeight: 'bold',
-                            lineHeight: 28
+                            lineHeight: 28,
+                            backgroundColor: 'black',
                           }}
                         >
-                          {item.title}
+                          {item.name}
                         </Text>
                       </SharedElement>
                       <SharedElement id={`item.${item.id}.description`}>
                         <Text
                           style={{
+                            width: 250,
+                            marginTop: 20,
                             color: 'white',
                             fontSize: 16,
-                            fontWeight: 'bold',
-                            lineHeight: 18
+                            backgroundColor: 'black',
+                            opacity: 0.8,
+                            lineHeight: 18,
                           }}
                         >
-                          {item.description}
+                          {item.description.slice(0, item.description.indexOf('.') + 1)}
                         </Text>
                       </SharedElement>
                     </View>
@@ -104,5 +91,6 @@ export default function VehiclesScreen({ navigation }) {
         </ScrollView>
       </View>
     </View>
-  );
+  )
 }
+  
