@@ -11,6 +11,8 @@ import { SimpleLineIcons, MaterialCommunityIcons } from '@expo/vector-icons'
 import { SharedElement } from 'react-navigation-shared-element'
 import * as Animatable from 'react-native-animatable'
 
+import { withComma, capitalize } from '../utils/helpers'
+
 const { height } = Dimensions.get('window')
 const ITEM_HEIGHT = height * 0.5
 
@@ -18,28 +20,45 @@ const DetailScreen = ({ navigation, route }) => {
   const { item } = route.params
   const buttonRef = React.useRef()
 
-  const infoPanel = [
-    // { id: 'height', label: 'Height' },
+  const fieldsMapping = [
+    { field: 'height', label: 'Height' },
+    { field: 'mass', label: 'Mass' },
     { field: 'first_flight', label: 'First Flight' },
+    { field: 'cost_per_launch', label: 'Cost Per Launch' },
     { field: 'country', label: 'Country' },
+    { field: 'type', label: 'Type' },
   ]
 
-  const renderInfoPanel = (payload) => {
-    return infoPanel.map((info, idx) => {
-      let label = ''
+  const renderDetails = (fieldsMapping) => {
+    /*
+      TODO: Refactor and have less logic, not more
+        1. If object is more than n level deep, ignore, except whitelisted key pairs.
+        2. Blacklist items we don't want to display so we remove fieldsMapping dependency.
+    */
+
+    return fieldsMapping.map((info, idx) => {
+      let label = info.label
       let value = ''
 
       switch (info.field) {
         case 'height':
-          
-          break;
+          value = `${item[info.field].meters} m / ${item[info.field].feet} ft.`
+          break
+        case 'mass':
+          value = `${withComma(item[info.field].kg)} kg / ${withComma(item[info.field].lb)} lb`
+          break
+        case 'cost_per_launch':
+          value = `$${withComma(item[info.field])}`
+          break
         default:
-          label = info.label
-          value = payload[info.field]
+          value = capitalize(item[info.field])
       }
 
       return (
-        <View key={`${info.field}_${idx}`} style={{ flexDirection: 'column', flex: 1 }}>
+        <View
+          key={`${info.field}_${idx}`}
+          style={{ flexDirection: 'column', marginBottom: 10 }}
+        >
           <Text
             style={{
               fontSize: 12,
@@ -50,7 +69,7 @@ const DetailScreen = ({ navigation, route }) => {
           >
             {label}
           </Text>
-          <Text style={{ color: '#fff' }}>{value}</Text>
+          <Text style={{ color: 'gray' }}>{value}</Text>
         </View>
       )
     })
@@ -131,9 +150,16 @@ const DetailScreen = ({ navigation, route }) => {
           />
         </View>
       </View>
-      <View style={{ flexDirection: 'row', flex: 1, padding: 25 }}>
-        {renderInfoPanel(item)}
-      </View>
+      <ScrollView
+        style={{
+          flexDirection: 'column',
+          flex: 1,
+          padding: 25,
+          marginBottom: 20,
+        }}
+      >
+        {renderDetails(fieldsMapping)}
+      </ScrollView>
     </View>
   )
 }
