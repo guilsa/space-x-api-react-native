@@ -15,7 +15,7 @@ expo start
 
 You can also use `yarn start`. Let it bundle. 
 
-You can also try previewing the app via your phone (iOS). To do that, after running the commands above, press c to show project QR and point your phone's camera at it. You'll need Expo for iOS or Android.
+You can also try previewing the app via your phone. I've tested on iOS. To do that, after running the commands above, press c to show project QR and point your phone's camera at it. You'll need Expo for iOS or Android.
 
 ## Goal
 
