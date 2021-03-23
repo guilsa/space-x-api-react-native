@@ -5,6 +5,11 @@ export function fetchRockets () {
     .then((res) => res.json())
 }
 
+export function fetchLaunches () {
+  return fetch(`${api}/launches/`)
+    .then((res) => res.json())
+}
+
 export function fetchInitialData() {
   return Promise.all([fetchRockets()]).then(([rockets]) => ({
     rockets,

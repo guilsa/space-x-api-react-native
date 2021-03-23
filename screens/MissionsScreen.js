@@ -1,163 +1,104 @@
-import React, { useRef } from 'react';
+import React, { useState } from 'react'
 import {
-  StyleSheet,
+  ScrollView,
   Text,
   View,
-  ScrollView,
+  TouchableOpacity,
   Image,
-  Dimensions
-} from 'react-native';
-import { SimpleLineIcons, MaterialCommunityIcons } from '@expo/vector-icons';
-import { SharedElement } from 'react-navigation-shared-element';
-import * as Animatable from 'react-native-animatable';
+  Dimensions,
+  StyleSheet,
+  FlatList,
+} from 'react-native'
+import { StatusBar } from 'expo-status-bar'
+import { Ionicons } from '@expo/vector-icons'
 
-const { height } = Dimensions.get('window');
-const ITEM_HEIGHT = height * 0.5;
+import { useQuery } from 'react-query'
 
-const MissionsScreen = ({ navigation, route }) => {
-  const { item } = route.params;
-  const buttonRef = React.useRef();
+import { fetchLaunches } from '../utils/api'
+
+const { width } = Dimensions.get('screen')
+
+const ITEM_WIDTH = width * 0.9
+const ITEM_HEIGHT = ITEM_WIDTH * 0.9
+
+function Item({ item }) {
+  return (
+    <View key={item.id} style={styles.listItem}>
+      <Image
+        source={{ uri: item.links.patch.small }}
+        style={{ width: 60, height: 60, borderRadius: 30 }}
+      />
+      <View style={{ alignItems: 'center', flex: 1, marginTop: 12 }}>
+        <Text style={{ fontWeight: 'bold', color: '#A7A9AC' }}>
+          {item.name}
+        </Text>
+        <Text
+          style={{
+            color: item.success ? 'green' : 'red',
+            marginTop: 3,
+            fontSize: 12,
+          }}
+        >
+          {item.success ? 'SUCCESS' : 'FAIL'}
+        </Text>
+      </View>
+      <TouchableOpacity
+        style={{
+          height: 50,
+          width: 50,
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        <Ionicons
+          style={{ marginTop: 11 }}
+          name="arrow-forward"
+          size={24}
+          color="#4E5860"
+        />
+      </TouchableOpacity>
+    </View>
+  )
+}
+
+export default function VehiclesScreen({ navigation }) {
+  const { data, error, isLoading, isError } = useQuery(
+    'launches',
+    fetchLaunches
+  )
 
   return (
     <View style={{ flex: 1, backgroundColor: '#0f0f0f' }}>
-      <SharedElement id={`item.${item.id}.image_url`}>
-        <Image
-          source={{ uri: item.image_url }}
-          style={{
-            width: '100%',
-            height: ITEM_HEIGHT,
-            borderBottomLeftRadius: 20,
-            borderBottomRightRadius: 20
-          }}
-          resizeMode='cover'
+      <StatusBar hidden />
+      {/* Header */}
+      <View style={styles.container}>
+        <FlatList
+          style={{ flex: 1 }}
+          data={data}
+          renderItem={({ item }) => <Item item={item} />}
+          keyExtractor={(item) => item.id}
         />
-      </SharedElement>
-      <Animatable.View
-        ref={buttonRef}
-        animation='fadeIn'
-        duration={600}
-        delay={300}
-        style={[StyleSheet.absoluteFillObject]}
-      >
-        <MaterialCommunityIcons
-          name='close'
-          size={28}
-          color='#fff'
-          style={{
-            position: 'absolute',
-            top: 40,
-            right: 20,
-            zIndex: 2
-          }}
-          onPress={() => {
-            buttonRef.current.fadeOut(100).then(() => {
-              navigation.goBack();
-            });
-          }}
-        />
-      </Animatable.View>
-      <View
-        style={{ flexDirection: 'row', marginTop: 10, paddingHorizontal: 20 }}
-      >
-        <SharedElement id={`item.${item.id}.iconName`}>
-          <SimpleLineIcons size={40} color='white' name={item.iconName} />
-        </SharedElement>
-        <View style={{ flexDirection: 'column', paddingLeft: 6 }}>
-          <SharedElement id={`item.${item.id}.title`}>
-            <Text
-              style={{
-                color: 'white',
-                fontSize: 24,
-                fontWeight: 'bold',
-                lineHeight: 28
-              }}
-            >
-              {item.title}
-            </Text>
-          </SharedElement>
-          <SharedElement id={`item.${item.id}.description`}>
-            <Text
-              style={{
-                color: 'white',
-                fontSize: 16,
-                fontWeight: 'bold',
-                lineHeight: 18
-              }}
-            >
-              {item.description}
-            </Text>
-          </SharedElement>
-        </View>
       </View>
-      <ScrollView
-        indicatorStyle='white'
-        style={{
-          paddingHorizontal: 20,
-          backgroundColor: '#0f0f0f'
-        }}
-        contentContainerStyle={{ paddingVertical: 20 }}
-      >
-        <Text
-          style={{
-            fontSize: 18,
-            color: '#fff',
-            lineHeight: 24,
-            marginBottom: 4
-          }}
-        >
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-          culpa qui officia deserunt mollit anim id est laborum.
-        </Text>
-        <Text
-          style={{
-            fontSize: 18,
-            color: '#fff',
-            lineHeight: 24,
-            marginBottom: 4
-          }}
-        >
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-          culpa qui officia deserunt mollit anim id est laborum.
-        </Text>
-      </ScrollView>
+      {/* Scrollable content */}
     </View>
-  );
-};
+  )
+}
 
-MissionsScreen.sharedElements = route => {
-  const { item } = route.params;
-  return [
-    {
-      id: `item.${item.id}.image_url`,
-      animation: 'move',
-      resize: 'clip'
-    },
-    {
-      id: `item.${item.id}.title`,
-      animation: 'fade',
-      resize: 'clip'
-    },
-    {
-      id: `item.${item.id}.description`,
-      animation: 'fade',
-      resize: 'clip'
-    },
-    {
-      id: `item.${item.id}.iconName`,
-      animation: 'move',
-      resize: 'clip'
-    }
-  ];
-};
-
-export default MissionsScreen;
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#0f0f0f',
+    color: '#A7A9AC',
+    marginTop: 60,
+  },
+  listItem: {
+    margin: 10,
+    padding: 10,
+    backgroundColor: '#181C1F',
+    width: '80%',
+    flex: 1,
+    alignSelf: 'center',
+    flexDirection: 'row',
+    borderRadius: 5,
+  },
+})
