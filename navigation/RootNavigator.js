@@ -29,7 +29,7 @@ function TabNavigator() {
       tabBarOptions={{
         labelStyle: {
           fontSize: 16,
-          marginBottom: 12,
+          marginBottom: 22,
         },
         activeTintColor: 'white',
         inactiveTintColor: '#d9d9d9',

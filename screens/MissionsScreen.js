@@ -33,7 +33,7 @@ export default function MissionsScreen({ navigation }) {
     <View style={{ flex: 1, backgroundColor: '#0f0f0f' }}>
       <StatusBar hidden />
       {/* Header */}
-      <View style={{ marginTop: 50, marginBottom: 20, paddingHorizontal: 20 }}>
+      <View style={{ marginTop: 50, paddingHorizontal: 20 }}>
         <Text style={{ color: '#888', textTransform: 'uppercase' }}>
           {dayjs().format('dddd, D MMMM')}
         </Text>
@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#0f0f0f',
     color: '#A7A9AC',
-    marginTop: 20,
+    marginTop: 5,
   },
   listItem: {
     margin: 10,

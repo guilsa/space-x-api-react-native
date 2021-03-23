@@ -1,6 +1,6 @@
 # SpaceX-API in React Native
 
-For data, this project interacts with the [SpaceX-API](https://github.com/r-spacex/SpaceX-API/tree/master/docs/v4). In addition to Expo and React Native, it uses React Query and React Navigation Shared Element.
+This project uses Expo, React Native, React Query and React Navigation Shared Element to interact with the [SpaceX-API](https://github.com/r-spacex/SpaceX-API/tree/master/docs/v4).
 
 ## Setup
 
@@ -25,14 +25,15 @@ You can also try previewing the app via your phone (iOS). To do that, after runn
 
 ## Next / future todo's
 
+- [ ] Handle isLoading, add react-loader-spinner
 - [ ] Add collapsible navbar (show header when scroll up, hide when scroll down)
-- [ ] Take advantage of react-query functionalities
 - [ ] Organize color palette used, it's not clean
 - [ ] Clean up repetitive component styling
+- [ ] Take advantage of react-query other functionalities (ie. persist react-query cache, etc)
 - [ ] Add ci/di and error tracking ([Bitrise](https://devcenter.bitrise.io/getting-started/getting-started-with-react-native-apps/), [Bugsnag](https://docs.bugsnag.com/platforms/react-native/expo/))
 - [ ] Improve poor performance from shared element animation
 - [ ] Test on Android
-- [ ] Persist react-query cache
+
 
 ## Decisions
 
