@@ -5,6 +5,7 @@ import { createSharedElementStackNavigator } from 'react-navigation-shared-eleme
 import VehiclesScreen from '../screens/VehiclesScreen'
 import MissionsScreen from '../screens/MissionsScreen'
 import DetailScreen from '../screens/DetailScreen'
+import MissionsDetailScreen from '../screens/MissionsDetailScreen'
 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 
@@ -60,6 +61,11 @@ export default function RootNavigator() {
         <Stack.Screen
           name="DetailScreen"
           component={DetailScreen}
+          options={() => options}
+        />
+        <Stack.Screen
+          name="MissionsDetailScreen"
+          component={MissionsDetailScreen}
           options={() => options}
         />
       </Stack.Navigator>

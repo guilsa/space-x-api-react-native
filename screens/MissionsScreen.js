@@ -21,9 +21,13 @@ const { width } = Dimensions.get('screen')
 const ITEM_WIDTH = width * 0.9
 const ITEM_HEIGHT = ITEM_WIDTH * 0.9
 
-function Item({ item }) {
+function Item({ item, navigation }) {
   return (
-    <View key={item.id} style={styles.listItem}>
+    <TouchableOpacity
+      key={item.id}
+      style={styles.listItem}
+      onPress={() => navigation.navigate('MissionsDetailScreen', { item })}
+    >
       <Image
         source={{ uri: item.links.patch.small }}
         style={{ width: 60, height: 60, borderRadius: 30 }}
@@ -56,7 +60,7 @@ function Item({ item }) {
           color="#4E5860"
         />
       </TouchableOpacity>
-    </View>
+    </TouchableOpacity>
   )
 }
 
@@ -79,7 +83,9 @@ export default function VehiclesScreen({ navigation }) {
         <FlatList
           style={{ flex: 1 }}
           data={data}
-          renderItem={({ item }) => <Item item={item} />}
+          renderItem={({ item }) => (
+            <Item navigation={navigation} item={item} />
+          )}
           keyExtractor={(item) => item.id}
         />
       </View>
