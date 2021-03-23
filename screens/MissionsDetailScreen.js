@@ -136,11 +136,6 @@ const MissionsDetailScreen = ({ navigation, route }) => {
 MissionsDetailScreen.sharedElements = (route) => {
   const { item } = route.params
   return [
-    // {
-    //   id: `item.${item.id}.image_url`,
-    //   animation: 'move',
-    //   resize: 'clip',
-    // },
     {
       id: `item.${item.id}.name`,
       animation: 'fade',
