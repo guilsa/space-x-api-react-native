@@ -36,7 +36,6 @@ function Item({ item }) {
           style={{
             color: item.success ? 'green' : 'red',
             marginTop: 3,
-            fontSize: 12,
           }}
         >
           {item.success ? 'SUCCESS' : 'FAIL'}
@@ -71,6 +70,11 @@ export default function VehiclesScreen({ navigation }) {
     <View style={{ flex: 1, backgroundColor: '#0f0f0f' }}>
       <StatusBar hidden />
       {/* Header */}
+      <View style={{ marginTop: 50, paddingHorizontal: 20 }}>
+        <Text style={{ color: '#fff', fontSize: 32, fontWeight: '600' }}>
+          Missions
+        </Text>
+      </View>
       <View style={styles.container}>
         <FlatList
           style={{ flex: 1 }}
