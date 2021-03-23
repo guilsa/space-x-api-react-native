@@ -12,6 +12,8 @@ import {
 import { StatusBar } from 'expo-status-bar'
 import { Ionicons } from '@expo/vector-icons'
 
+import dayjs from 'dayjs'
+
 import { useQuery } from 'react-query'
 
 import { fetchLaunches } from '../utils/api'
@@ -20,6 +22,39 @@ const { width } = Dimensions.get('screen')
 
 const ITEM_WIDTH = width * 0.9
 const ITEM_HEIGHT = ITEM_WIDTH * 0.9
+
+export default function MissionsScreen({ navigation }) {
+  const { data, error, isLoading, isError } = useQuery(
+    'launches',
+    fetchLaunches
+  )
+
+  return (
+    <View style={{ flex: 1, backgroundColor: '#0f0f0f' }}>
+      <StatusBar hidden />
+      {/* Header */}
+      <View style={{ marginTop: 50, marginBottom: 20, paddingHorizontal: 20 }}>
+        <Text style={{ color: '#888', textTransform: 'uppercase' }}>
+          {dayjs().format('dddd, D MMMM')}
+        </Text>
+        <Text style={{ color: '#fff', fontSize: 32, fontWeight: '600' }}>
+          Missions
+        </Text>
+      </View>
+      <View style={styles.container}>
+        <FlatList
+          style={{ flex: 1 }}
+          data={data}
+          renderItem={({ item }) => (
+            <Item navigation={navigation} item={item} />
+          )}
+          keyExtractor={(item) => item.id}
+        />
+      </View>
+      {/* Scrollable content */}
+    </View>
+  )
+}
 
 function Item({ item, navigation }) {
   return (
@@ -64,42 +99,12 @@ function Item({ item, navigation }) {
   )
 }
 
-export default function VehiclesScreen({ navigation }) {
-  const { data, error, isLoading, isError } = useQuery(
-    'launches',
-    fetchLaunches
-  )
-
-  return (
-    <View style={{ flex: 1, backgroundColor: '#0f0f0f' }}>
-      <StatusBar hidden />
-      {/* Header */}
-      <View style={{ marginTop: 50, paddingHorizontal: 20 }}>
-        <Text style={{ color: '#fff', fontSize: 32, fontWeight: '600' }}>
-          Missions
-        </Text>
-      </View>
-      <View style={styles.container}>
-        <FlatList
-          style={{ flex: 1 }}
-          data={data}
-          renderItem={({ item }) => (
-            <Item navigation={navigation} item={item} />
-          )}
-          keyExtractor={(item) => item.id}
-        />
-      </View>
-      {/* Scrollable content */}
-    </View>
-  )
-}
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#0f0f0f',
     color: '#A7A9AC',
-    marginTop: 60,
+    marginTop: 20,
   },
   listItem: {
     margin: 10,
