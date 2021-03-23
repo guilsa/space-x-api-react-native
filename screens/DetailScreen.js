@@ -14,12 +14,14 @@ import * as Animatable from 'react-native-animatable'
 import { withComma, capitalize } from '../utils/helpers'
 
 const { height } = Dimensions.get('window')
-const ITEM_HEIGHT = height * 0.5
+const ITEM_HEIGHT = height * 0.4
 
 const DetailScreen = ({ navigation, route }) => {
   const { item } = route.params
   const buttonRef = React.useRef()
 
+  // Add fields you'd like to render
+  // Field value below must match Space X api response
   const fieldsMapping = [
     { field: 'height', label: 'Height' },
     { field: 'mass', label: 'Mass' },
@@ -46,7 +48,9 @@ const DetailScreen = ({ navigation, route }) => {
           value = `${item[info.field].meters} m / ${item[info.field].feet} ft.`
           break
         case 'mass':
-          value = `${withComma(item[info.field].kg)} kg / ${withComma(item[info.field].lb)} lb`
+          value = `${withComma(item[info.field].kg)} kg / ${withComma(
+            item[info.field].lb
+          )} lb`
           break
         case 'cost_per_launch':
           value = `$${withComma(item[info.field])}`
@@ -124,7 +128,7 @@ const DetailScreen = ({ navigation, route }) => {
                 fontWeight: 'bold',
                 lineHeight: 28,
                 marginTop: 10,
-                marginBottom: 20,
+                marginBottom: 12,
               }}
             >
               {item.name}
@@ -134,8 +138,7 @@ const DetailScreen = ({ navigation, route }) => {
             <Text
               style={{
                 color: 'white',
-                fontSize: 16,
-                fontWeight: 'bold',
+                fontSize: 14,
                 lineHeight: 18,
               }}
             >
@@ -144,9 +147,10 @@ const DetailScreen = ({ navigation, route }) => {
           </SharedElement>
           <View
             style={{
-              marginTop: 20,
-              borderBottomColor: 'grey',
+              marginTop: 15,
+              borderBottomColor: '#404040',
               borderBottomWidth: 0.2,
+              borderBottomWidth: 1,
             }}
           />
         </View>
@@ -155,8 +159,11 @@ const DetailScreen = ({ navigation, route }) => {
         style={{
           flexDirection: 'column',
           flex: 1,
-          padding: 25,
-          marginBottom: 20,
+          marginTop: 12,
+          paddingLeft: 25,
+          paddingRight: 25,
+          paddingBottom: 15,
+          marginBottom: 5,
         }}
       >
         {renderDetails(fieldsMapping)}
