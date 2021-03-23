@@ -23,14 +23,16 @@ You can also try previewing the app via your phone (iOS). To do that, after runn
   - Should be easy to use
   - Should handle drill down across all cases
 
-## Next / todo
+## Next / future todo's
 
+- [ ] Add collapsible navbar (show header when scroll up, hide when scroll down)
+- [ ] Take advantage of react-query functionalities
 - [ ] Organize color palette used, it's not clean
-- [ ] Persist react-query cache
 - [ ] Clean up repetitive component styling
-- [ ] Take advantage of other basic react-query
-- [ ] Think about meaningful tests
-- [ ] Test on Android 
+- [ ] Add ci/di and error tracking ([Bitrise](https://devcenter.bitrise.io/getting-started/getting-started-with-react-native-apps/), [Bugsnag](https://docs.bugsnag.com/platforms/react-native/expo/))
+- [ ] Improve poor performance from shared element animation
+- [ ] Test on Android
+- [ ] Persist react-query cache
 
 ## Decisions
 
