@@ -4,9 +4,34 @@
   - Should be easy to use
   - Should handle drill down across all cases
 
+# Next / todo
+
+- [ ] Organize color palette used, it's not clean
+- [ ] Persist react-query cache
+- [ ] Clean up repetitive component styling
+- [ ] Take advantage of other basic react-query
+
+# Decisions
+
+- Why use react-query?
+  - Simply put, React Query allows us to store remote data in a cache, and not in a React state.
+  - React Query is a type of state manager, specifically designed to manage asynchronous state that you get from outside of your app, so server-state, API state, or anything else that is not local client state.
+- Is react-query overkill for interacting with Space X API and doing purely GET requests?
+  - I wanted to experiment with persistant data structures and structural sharing. In JavaScript, objects are mutable by default. Under the hood, performing operations on an object means the system is copying every single property of the over. As we have larger objects, that becomes an issue. React Query allows us to experiment with these problems.
+
+# Challenges
+
+- VirtualizedList: You have a large list that is slow to update - make sure your renderItem function renders components that follow React performance best practices like PureComponent, shouldComponentUpdate
+  - Solution: Waiting for problem to reappear. If it goes, will document.
+
 # Credits
 
-This project was forked from: 
+For shared element transitions, credit goes to https://blog.logrocket.com/how-to-use-shared-element-transition-with-react-navigation-v5/ ([@amanhimself][@amanhimself]).
 
-- [**Tutorial**](https://blog.logrocket.com/how-to-use-shared-element-transition-with-react-navigation-v5/) by [@amanhimself][@amanhimself]
-- [@amanhimself]: https://twitter.com/amanhimself
+Also, the MissionsDetailScreen FlatList design was inspirated by https://github.com/Alhydra/React-Native-Flatlist-Example.
+
+# Inspiration
+
+Mobile UI design is an interesting challenge.
+
+For user navigation, my inspiration came from a similar web app: https://spacex-project.netlify.app.
