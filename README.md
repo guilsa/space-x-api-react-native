@@ -1,6 +1,8 @@
 # SpaceX-API in React Native
 
-This project uses Expo, React Native, React Query and React Navigation Shared Element to interact with the [SpaceX-API](https://github.com/r-spacex/SpaceX-API/tree/master/docs/v4).
+I've built Figma designs, which can be found [here](https://www.figma.com/file/QD45UWV6GcEfiAbK79wWUp/SpaceX-Design?node-id=5%3A76). 
+
+The project is built with Expo, React Native, React Query and React Navigation Shared Element to interact with the [SpaceX-API](https://github.com/r-spacex/SpaceX-API/tree/master/docs/v4).
 
 ## Setup
 
